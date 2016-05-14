@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <h1>Module 1: Introducing C++</h1>
+    <h1>Module 1</h1>
     <p> A C++ program has a very specific structure in terms of how the code is written and some key elements
  that you use in your C++ programs. The simplest of C++ programs is shown here. </p>
 
