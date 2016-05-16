@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,7 +19,7 @@
   </head>
 
   <body>
-    <h1>Module 2: Data Types in C++</h1>
+    <h1>Module 1: Introducing C++</h1>
     <h2>Available Data Types</h2>
     <p>C++ contains intrinsic data types to store numeric values in your application code. It's important to remember that these values are binary-based and not as flexible as their base 10 counterparts. For example, in mathematical terms of a base 10 integer, the definition is a value that is negative infinity to positive infinity whole numbers. Modern computers still cannot represent numbers these large. Take as an example the int type in the Numeric Data Types table. The range does not exceed 3 billion in either direction.</p>
     <p>Character data is used to represent non-numeric data such as letters and symbols.  Character data is actually represented as numeric information under the covers.  The standard char type is used to represent the numeric values for character data as represented by the basic character set present on a particular computer.  This is determined by the locale settings.</p>
