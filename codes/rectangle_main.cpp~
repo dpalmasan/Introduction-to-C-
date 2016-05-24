@@ -1,0 +1,13 @@
+#include <iostream>
+#include "Rectangle.h"
+
+using namespace std;
+
+int main(void)
+{
+    const Rectangle r = Rectangle(3, 4);
+
+    cout << "Your rectangle size is " << r.getWidth() << "x" << r.getHeight() << endl;
+    cout << "Its area is " << r.getArea() << endl;
+    return 0; 
+}

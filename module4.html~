@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Apuntes C++</title>
+    <style>
+      p {
+        text-align:justify;
+        padding: 0 600px 0 0px;
+      }
+      li {
+        text-align:justify;
+        padding: 0 600px 0 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Module 4: Functions and Objects</h1>
+    <h2>Introducing Functions</h2>
+    <p>Functions are a component of a programming language that permit you to break down the behavior of an application into discreet pieces of functionality, hence the name function.  A function is essentially a block of C++ code that you give a name and then call from other locations in your application, when you want the computer to perform the instructions contained in that function.</p>
+
+    <p>You create a function by defining it.  The function definition may contain a return type, a function name, parameters to accept incoming arguments, and finally a body which contains the code that will execute as part of that function.  Functions may or may not return a value back to the caller and they may or may not accept arguments passed in to the function.</p>
+
+    <p>When you move into more advanced C++ programming, you can also overload functions.  This refers to the practice of using the same function name to refer to multiple functions that perform different actions.  Why would you do this?  Consider a simple scenario where you want to perform addition on some values so you create a function called Sum().  You could overload Sum() by creating variants such as:</p>
+
+    <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> Sum<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> x<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> y<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+     <span style='color:#800000; font-weight:bold; '>return</span> x <span style='color:#808030; '>+</span> y<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+
+<span style='color:#800000; font-weight:bold; '>int</span> Sum<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> x<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> y<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> z<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+     <span style='color:#800000; font-weight:bold; '>return</span> x <span style='color:#808030; '>+</span> y <span style='color:#808030; '>+</span> z<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+    </pre>
+
+    <p>The compiler will know which function to call, based on the number of arguments passed in.</p>
+
+    <p>When declaring a function, you specify its storage class, return type, name, and parameters.  Some refer to this as the function signature.  In C++ it is also called a function prototype.</p>
+    <p>In C++, function prototypes belong in header files.  Recall that the header file is what gets imported into other source code files so that the compiler can track proper use of functions and other aspects of the included files.  The function prototype only contains the function's signature with no implementation details.  The implementation details along with the function signature, define the function.  The function definition exists in the source code file (.cpp).</p>
+
+    <p>A function can accept values that will be used in the statements in the function body.  These values are known as arguments when passed to a function.  The arguments are passed into parameters.  Parameters are the placeholders that are found inside the parentheses of a function declaration, as shown in the following example where a and b are the parameters.  Note that the data types for these are specified and that the parameters are separated by a comma.</p>
+
+    <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> Sum<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> a<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> b<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+     <span style='color:#800000; font-weight:bold; '>return</span> a <span style='color:#808030; '>+</span> b<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+    </pre>
+
+    <p>Your function can specify as many parameters as necessary for the function to complete its work but for obvious reasons, you don't want to create a function signature that is so long, your code line wraps.  If your function takes that many parameters, it's worth refactoring it to reduce the number of parameters.</p>
+
+    <p>When calling the function, you use the function name, followed by an open parenthesis, the arguments that will be passed into the parameters, and then a closing parenthesis, as shown here:</p>
+
+    <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> result <span style='color:#808030; '>=</span> Sum<span style='color:#808030; '>(</span><span style='color:#008c00; '>2</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>3</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    </pre>
+
+    <p>Note that you don't have to include the data type specifiers for the arguments being passed in but you must know the data type the function expects.  This is one of the reasons for declaring a function prototype prior to using it in code.</p>
+
+    <p>
+
+One of the goals for using functions in your code is to create discrete pieces of functionality in your code that is easier to test and maintain.  However, functions also have an impact on application performance.  The reason for this impact results from the operations that must be performed when a function is called.  For example, registers in the CPU need to be reset, stack pointers are created, memory is consumed for these pointers and the values that are passed into and out of the function.    For simple functions that may perform only a single operation or have only a single, simple statement, you might wonder why creating a function for it is worth the effort.</p>
+
+    <p>You can still make use of a function to perform the necessary computation but it makes more sense to create the function as an inline function.  Inline functions avoid the overhead associated with traditional function calls.  You create an inline function by prefixing it with the inline keyword.  A common function found in applications for a sorting algorithm such as bubble sort, is a swap function.  Swap takes two variables and swaps their values as shown here:</p>
+
+    <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>inline</span> <span style='color:#800000; font-weight:bold; '>void</span> swap<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#808030; '>&amp;</span> a<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#808030; '>&amp;</span> b<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+     <span style='color:#800000; font-weight:bold; '>int</span> temp <span style='color:#808030; '>=</span> a<span style='color:#800080; '>;</span>
+     a <span style='color:#808030; '>=</span> b<span style='color:#800080; '>;</span>
+     b <span style='color:#808030; '>=</span> temp<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+    </pre>
+
+    <p>Using this mechanism, each time that a call to the swap() method is encountered in your code, the compiler will insert the body of the function in that location as opposed to making a function call.  This example demonstrates what that would look like.</p>
+
+    <pre style='color:#000000;background:#ffffff;'><span style='color:#696969; '>// Traditional method that results in a function call</span>
+<span style='color:#603000; '>swap</span><span style='color:#808030; '>(</span><span style='color:#008c00; '>5</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>6</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+<span style='color:#696969; '>// Using an inline function call, the compiler converts the previous line to this</span>
+<span style='color:#800000; font-weight:bold; '>int</span> temp <span style='color:#808030; '>=</span> a<span style='color:#800080; '>;</span>
+a <span style='color:#808030; '>=</span> b<span style='color:#800080; '>;</span>
+b <span style='color:#808030; '>=</span> temp<span style='color:#800080; '>;</span>
+    </pre>
+
+    <p>This avoids the overhead of making a function call because the contents of the function body are now located at the point where the functionality is required.   Note a couple of points about inline functions:</p>
+
+    <ul>
+      <li>the inline keyword is a compiler directive that is a recommendation only.  The compiler may ignore your request and compile the function normally resulting in function calls anyway.</li>
+      <li>if you are using inline functions and change the function in anyway, the code needs to be recompiled because the code for that function will need to be updated in each location it was used.</li>
+      <li>use inline functions only for small functions that are used frequently, not for large functions.</li>
+    </ul>
+
+    <p>MSDN defines storage class as, "A storage class in the context of C++ variable declarations is a type specifier that governs the lifetime, linkage, and memory location of objects."</p>
+
+    <p>Lifetime refers to how long the variable "hangs around" in memory from the point at which it is declared and the point at which it is destroyed (the memory it used is released).  For the most part, once a variable goes out of scope, its memory will be released back to the operating system for reuse.</p>
+
+    <p>Linkage refers to the visibility of a variable outside of the file that contains it.  </p>
+
+    <p>Memory location refers to the place in which the variable is found in memory.  This doesn't refer to the physical memory address as you might expect but more to the logical division of memory that applies to a running application.  There are two logical memory areas known as the stack and the heap.  The stack is a location in memory where intrinsic data is stored as well as memory addresses (pointers).  It operates in the form of data structure known as a stack.  Like a cafeteria stack of plates, items are pushed on top of the stack and other items are pushed further down.  To remove an item from the stack, it is popped off, used, and discarded.</p>
+
+    <p>The heap, or free store, is a pool of memory that is used to store objects that dynamically allocated at run time by your application.  An object is what you will learn about in the next topic on object-oriented programming.  You create and destroy objects on the heap by using specific instructions in your program code.</p>
+
+    <p>Scope is the term used describe where an identifier is visible in a program.  An identifier is a variable, constant, class, etc.  Your identifier is visible from the point in which you have declared it until the end of its scope.  The following code sample displays different scope for the identifiers used.</p>
+
+    <pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>iostream</span><span style='color:#800000; '>></span>
+<span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#800000; font-weight:bold; '>int</span> total <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>=</span> <span style='color:#008c00; '>10</span><span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+    <span style='color:#800080; '>{</span>
+        total <span style='color:#808030; '>+</span><span style='color:#808030; '>=</span> i<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+    <span style='color:#666616; '>std</span><span style='color:#800080; '>::</span><span style='color:#603000; '>cout</span> <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>&lt;</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>The sum of the numbers 1 to 10 is </span><span style='color:#800000; '>"</span> <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>&lt;</span> total <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>&lt;</span> <span style='color:#666616; '>std</span><span style='color:#800080; '>::</span><span style='color:#603000; '>endl</span><span style='color:#800080; '>;</span>
+    <span style='color:#666616; '>std</span><span style='color:#800080; '>::</span><span style='color:#603000; '>cout</span> <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>&lt;</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Current value of i is </span><span style='color:#800000; '>"</span> <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>&lt;</span> i <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>&lt;</span> <span style='color:#666616; '>std</span><span style='color:#800080; '>::</span><span style='color:#603000; '>cout</span><span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+    </pre>
+
+    <p>In the previous code, the variable total is declared inside main() but outside of the for loop. This means that total is visible (in scope) for the entire main() method, which also includes inside the for loop.  However, the variable i is declared inside the for loop's initialization section and is therefore constrained to the scope of the for loop. The code at line 10 will result in an error in C++ that indicates the variable is undefined. Anyplace other than inside the for loop is out of scope for the variable i.</p>
+
+    <p>C++ makes use of the following keywords that apply to storage classes:</p>
+
+    <ul>
+      <li>static - identifiers declared with static are allocated when the program starts and deallocated when the program execution ends.  Declaring a variable as static in a function means that the variable will retain its value between calls to the function.</li>
+      <li>extern - used to declare an object that is defined in another translation unit of within the enclosing scope but has an external linkage.</li>
+      <li>thread_local - declares that the identifier is only accessible on the thread in which it is created.  This prevents sharing of the identifier across multiple threads in the same application.   This is part of the C++11 standard.</li>
+    </ul>
+
+    <h2>Introducing Objects (Classes)</h2>
+
+    <p>Classes enable you to create your own custom, self-contained, and reusable types. A class file is often considered a blueprint for objects that you use in your code.  Typically you will create class files to help model real-world objects in your code.</p>
+
+    <p>An example of this might be the software that manages a bank ATM.  The software would need to understand the concept of customers, accounts, transactions, etc.   It's far easier to implement the software application by modelling these real world objects as software objects (classes) in your code.</p>
+
+    <p>In this module, you will gain an introduction to classes in C++ that will cover the basics only.  The second installment of the C++ course will delve deeper into object oriented concepts in C++.</p>
+
+    <h3>Creating Classes and Members</h3>
+
+    <p>In C++, a class is a programming construct that you can use to define your own custom types. When you create a class, you are effectively creating a blueprint for the type. The class defines the behaviors and characteristics, or class members, which are shared by all instances of the class. You represent these behaviors and characteristics by defining methods and fields within your class.</p>
+
+    <p>Suppose you create a class to represent a rectangle shape in your program.  You use the class keyword to declare a class, as shown in the following example:</p>
+
+    <pre style='color:#000000;background:#ffffff;'><span style='color:#696969; '>//Declaring a Class</span>
+<span style='color:#800000; font-weight:bold; '>class</span> <span style='color:#400000; '>Rectangle</span>
+<span style='color:#800080; '>{</span>
+<span style='color:#800000; font-weight:bold; '>public</span><span style='color:#e34adc; '>:</span>
+    <span style='color:#800000; font-weight:bold; '>int</span> _width<span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>int</span> _height<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+    </pre>
+
+    <p>Here we have declared a class called Rectangle and given it two public member variables called _width and _height, that will be used to represent the width and height of our rectangle.   Note that they are accessible directly because they are public, as a result of the public: modifier.</p>
+
+    <h3>Using a Class</h3>
+
+    <p>Now that we have a class created to represent a rectangle, we can use that in our code to create instances of a rectangle in our program.  When we create a new rectangle from this class, it is known as a rectangle object and will be given a unique name.  That way ,we can refer to it in our program directly and distinguish it from other rectangle instances that we might create, should our program require more than one.</p>
+
+    <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+     <span style='color:#400000; '>Rectangle</span> outer<span style='color:#800080; '>;</span>
+     <span style='color:#400000; '>Rectangle</span> inner<span style='color:#800080; '>;</span>    
+
+     outer<span style='color:#808030; '>.</span>_width <span style='color:#808030; '>=</span> <span style='color:#008c00; '>10</span><span style='color:#800080; '>;</span>
+     outer<span style='color:#808030; '>.</span>_height <span style='color:#808030; '>=</span> <span style='color:#008c00; '>10</span><span style='color:#800080; '>;</span>
+
+     inner<span style='color:#808030; '>.</span>_width <span style='color:#808030; '>=</span> <span style='color:#008c00; '>5</span><span style='color:#800080; '>;</span>
+     inner<span style='color:#808030; '>.</span>_height <span style='color:#808030; '>=</span> <span style='color:#008c00; '>5</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+    </pre>
+
+    <p>In this sample code, we have created two rectangle objects called outer and inner. Then, using what is known as "dot notation" or the dot operator, we provide values for the width and height of each rectangle. The outer rectangle is 10 x 10 and the inner rectangle is 5x5.</p>
+
+    <p>Initialization is an important part of working with your classes in C++. Even when using intrinsic data types, if you do not initialize the variable for that type and you access it in your code, you will end up with whatever values are stored in the memory location that the variable refers to.  This is something you want to avoid doing. You should always initialize your types in C++;</p>
+
+    <p>C++ offers a couple of options for initializing your classes. You can initialize the member variables by using the dot operator and setting the values explicitly or you can include a constructor in your class that is responsible for initialization the member variables.   You'll see this in the demo video next as well as more information in the topic on encapsulation.</p>
+
+    <h2>Encapsulation</h2>
+    <p>Often considered the first pillar of object-oriented programming, encapsulation can be used to describe the accessibility of the members belonging to a class.  C++ provides access modifiers and properties to help implement encapsulation in your classes.  While some consider this accessibility configuration to be the only aspect of encapsulation, others also define encapsulation as the act of including all data and behavior required of the class, within the class definition. </p>
+
+    <p>We use encapsulation to prevent changing the member variables directly.  This is considered a poor practice because it presents the opportunity for potentially incorrect values to be assigned to these member variables.  This can result in unexpected behavior or more serious problems with your executing code.  It also helps with debugging of your code.</p>
+
+    
+  </body>
+</html>
